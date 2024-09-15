@@ -83,7 +83,7 @@ function divide() {
 }
 
 function equals() {
-  fromTotal = true
+  fromTotal = true;
   if (multi == true) {
     total = Number(currentNum) * total;
     document.querySelector('.screen').innerText = total;
@@ -99,7 +99,7 @@ function equals() {
     total += Number(currentNum)
     document.querySelector('.screen').innerText = total;
     currentNum = 0;
-    console.log(total)
+    console.log(total);
   }
 }
 
