@@ -1,4 +1,6 @@
-body {background-color: lightgreen;}
+body {
+    background-color: lightgreen;
+}
 
 #calculator {
     background-color: lightblue;
@@ -16,6 +18,7 @@ body {background-color: lightgreen;}
     margin-bottom: 3vh;
     margin-left: 4%;
     padding-left: 1vw;
+    word-wrap: break-word;
 }
 
 .row {
@@ -38,13 +41,14 @@ body {background-color: lightgreen;}
     width: 20%;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
     cursor: pointer;
+    border-radius: 5px;
 }
 .button:active {
     opacity: 0.7;
 }
 
 #clear{
-    background-color: rgb(228, 127, 127);
+    background-color: rgb(255, 104, 255);
 }
 
 .calc {
@@ -52,6 +56,8 @@ body {background-color: lightgreen;}
 }
 
 p{
-    font-size: large;
+    font-size: 8vh;
+    word-wrap: break-word;
+    margin-top: 1vw;
 }
 

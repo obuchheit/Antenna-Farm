@@ -1,73 +1,30 @@
 let total = 0;
 let currentNum = ''; 
+let multi = false;
+let div = false;
 
 
-document.querySelector('#button-one').addEventListener('click', one)
-document.querySelector('#button-two').addEventListener('click', two)
-document.querySelector('#button-three').addEventListener('click', three)
-document.querySelector('#button-four').addEventListener('click', four)
-document.querySelector('#button-five').addEventListener('click', five)
-document.querySelector('#button-six').addEventListener('click', six)
-document.querySelector('#button-seven').addEventListener('click', seven)
-document.querySelector('#button-eight').addEventListener('click', eight)
-document.querySelector('#button-nine').addEventListener('click', nine)
-document.querySelector('#button-zero').addEventListener('click', zero)
+
+document.querySelector('#button-one').addEventListener('click', numbers)
+document.querySelector('#button-two').addEventListener('click', numbers)
+document.querySelector('#button-three').addEventListener('click', numbers)
+document.querySelector('#button-four').addEventListener('click', numbers)
+document.querySelector('#button-five').addEventListener('click', numbers)
+document.querySelector('#button-six').addEventListener('click', numbers)
+document.querySelector('#button-seven').addEventListener('click', numbers)
+document.querySelector('#button-eight').addEventListener('click', numbers)
+document.querySelector('#button-nine').addEventListener('click', numbers)
+document.querySelector('#button-zero').addEventListener('click', numbers)
 document.querySelector('#add-button').addEventListener('click', add);
 document.querySelector('#subtract-button').addEventListener('click', add)
 document.querySelector('#clear').addEventListener('click', clear)
 document.querySelector('#equals-button').addEventListener('click', equals)
+document.querySelector('#multi-button').addEventListener('click', multiply)
 
-
-function one() {
-  currentNum += '1';
-  console.log(currentNum);
+function numbers() {
+  currentNum += this.innerText;
   document.querySelector('.screen').innerText = Number(currentNum);
 }
-
-function two() {
-  currentNum += '2';
-  document.querySelector('.screen').innerText = Number(currentNum);
-}
-
-function three() {
-  currentNum += '3';
-  document.querySelector('.screen').innerText = Number(currentNum);
-}
-
-function four() {
-  currentNum += '4';
-  document.querySelector('.screen').innerText = Number(currentNum);
-}
-
-function five() {
-  currentNum += '5';
-  document.querySelector('.screen').innerText = Number(currentNum);
-}
-
-function six() {
-  currentNum += '6';
-  document.querySelector('.screen').innerText = Number(currentNum);
-}
-
-function seven() {
-  currentNum += '7';
-  document.querySelector('.screen').innerText = Number(currentNum);
-}
-
-function eight() {
-  currentNum += '8';
-  document.querySelector('.screen').innerText = Number(currentNum);
-}
-
-function nine() {
-  currentNum += '9';
-  document.querySelector('.screen').innerText = Number(currentNum);
-}
-function zero() {
-  currentNum += '0';
-  document.querySelector('.screen').innerText = Number(currentNum);
-}
-
 
 function add() {
   if (this.innerText == '-' && total !== 0) {
@@ -88,14 +45,34 @@ function add() {
   }
 }
 function multiply() {
+  if (total == 0) {
+    total += Number(currentNum);
+    console.log(total);
+    multi = true;
+    document.querySelector('.screen').innerText = 0;
+    currentNum = 0;
+  } else {
+    total = total * Number(currentNum);
+  }
 }
+
 function divide() {
 }
 
 function equals() {
-  total += Number(currentNum)
-  document.querySelector('.screen').innerText = total;
-  console.log(total)
+  if (multi == true) {
+    total = Number(currentNum) * total;
+    document.querySelector('.screen').innerText = total;
+    currentNum = 0;
+    console.log(total);
+    multi = false;
+  } else {
+    total += Number(currentNum)
+    document.querySelector('.screen').innerText = total;
+    currentNum = 0;
+    console.log(total)
+  }
+  
 }
 
 function clear() {
