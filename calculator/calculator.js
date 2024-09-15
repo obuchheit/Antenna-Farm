@@ -2,6 +2,7 @@ let total = 0;
 let currentNum = ''; 
 let multi = false;
 let div = false;
+let fromTotal = true;
 
 
 
@@ -20,6 +21,7 @@ document.querySelector('#subtract-button').addEventListener('click', add)
 document.querySelector('#clear').addEventListener('click', clear)
 document.querySelector('#equals-button').addEventListener('click', equals)
 document.querySelector('#multi-button').addEventListener('click', multiply)
+document.querySelector('#divide-button').addEventListener('click', divide)
 
 function numbers() {
   currentNum += this.innerText;
@@ -43,36 +45,62 @@ function add() {
     currentNum = 0;
     document.querySelector('.screen').innerText = Number(currentNum);
   }
+  fromTotal = false;
 }
+
 function multiply() {
+  multi = true;
   if (total == 0) {
     total += Number(currentNum);
     console.log(total);
-    multi = true;
+    document.querySelector('.screen').innerText = 0;
+    currentNum = 0;
+  } else if (fromTotal = true) {
     document.querySelector('.screen').innerText = 0;
     currentNum = 0;
   } else {
     total = total * Number(currentNum);
+    currentNum = 0;
   }
+  fromTotal = false;
 }
 
 function divide() {
+  div = true;
+  if (total == 0) {
+    total += Number(currentNum);
+    console.log(total);
+    document.querySelector('.screen').innerText = 0;
+    currentNum = 0;
+  } else if (fromTotal = true) {
+    document.querySelector('.screen').innerText = 0;
+    currentNum = 0;
+  } else {
+    total = total / Number(currentNum);
+    currentNum = 0;
+  }
+  fromTotal = false;
 }
 
 function equals() {
+  fromTotal = true
   if (multi == true) {
     total = Number(currentNum) * total;
     document.querySelector('.screen').innerText = total;
     currentNum = 0;
     console.log(total);
     multi = false;
+  } else if (div == true) {
+    total = total / Number(currentNum);
+    document.querySelector('.screen').innerText = total;
+    currentNum = 0;
+    div = false;
   } else {
     total += Number(currentNum)
     document.querySelector('.screen').innerText = total;
     currentNum = 0;
     console.log(total)
   }
-  
 }
 
 function clear() {

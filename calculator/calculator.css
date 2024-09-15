@@ -7,6 +7,7 @@ body {
     width: 40vw;
     height: 75vh;
     padding-top: 3vh;
+    border-radius: 10px;
 }
 
 .screen {
