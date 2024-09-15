@@ -22,6 +22,8 @@ document.querySelector('#clear').addEventListener('click', clear)
 document.querySelector('#equals-button').addEventListener('click', equals)
 document.querySelector('#multi-button').addEventListener('click', multiply)
 document.querySelector('#divide-button').addEventListener('click', divide)
+//document.addEventListener('keydown', numbers) {
+//}
 
 function numbers() {
   currentNum += this.innerText;
