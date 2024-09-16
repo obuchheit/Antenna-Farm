@@ -26,6 +26,8 @@ document.querySelector('#divide-button').addEventListener('click', divide)
 //}
 
 function numbers() {
+ // if (this.keydown == (/[^1-4]/g;)) {
+  //}
   currentNum += this.innerText;
   document.querySelector('.screen').innerText = Number(currentNum);
 }
