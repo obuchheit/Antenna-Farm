@@ -22,21 +22,32 @@ document.querySelector('#clear').addEventListener('click', clear)
 document.querySelector('#equals-button').addEventListener('click', equals)
 document.querySelector('#multi-button').addEventListener('click', multiply)
 document.querySelector('#divide-button').addEventListener('click', divide)
+
 document.addEventListener('keydown', (event) => {
+  let shiftKey = false;
+
   if (event.key <= 9 && event.key >= 0) {
     let keyNum = event.key;
     let numStr = keyNum.toString();
     currentNum += numStr;
     document.querySelector('.screen').innerText = Number(currentNum);
   } 
-
   if (event.key == 'Enter' || event.key == '=') {
     equals();
   }
-
   if (event.key == '/') {
     divide();
   }
+  if (event.shiftKey && event.key == '+' ) {
+    add();
+  }
+  if (event.shiftKey && event.key == 8) {
+    multiply();
+  }
+  if (event.key == '-') {
+    keySub();
+  }
+
 })
 
 
@@ -44,6 +55,21 @@ document.addEventListener('keydown', (event) => {
 function numbers() {
   currentNum += this.innerText;
   document.querySelector('.screen').innerText = Number(currentNum);
+}
+
+function keySub() {
+  if (total !== 0) {
+    total += Number(currentNum);
+    console.log(total)
+    currentNum = '-';
+    document.querySelector('.screen').innerText = 0;
+  } else {
+    total += Number(currentNum);
+    console.log(total)
+    currentNum = '-';
+    document.querySelector('.screen').innerText = 0;
+  }
+  fromTotal = false;
 }
   
 
