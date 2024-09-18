@@ -28,8 +28,14 @@ document.addEventListener('keydown', (event) => {
     let numStr = keyNum.toString();
     currentNum += numStr;
     document.querySelector('.screen').innerText = Number(currentNum);
-  } else {
-    console.log(event.key)
+  } 
+
+  if (event.key == 'Enter' || event.key == '=') {
+    equals();
+  }
+
+  if (event.key == '/') {
+    divide();
   }
 })
 
