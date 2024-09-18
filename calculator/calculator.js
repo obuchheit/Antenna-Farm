@@ -22,15 +22,24 @@ document.querySelector('#clear').addEventListener('click', clear)
 document.querySelector('#equals-button').addEventListener('click', equals)
 document.querySelector('#multi-button').addEventListener('click', multiply)
 document.querySelector('#divide-button').addEventListener('click', divide)
-//document.addEventListener('keydown', numbers) {
-//}
+document.addEventListener('keydown', (event) => {
+  if (event.key <= 9 && event.key >= 0) {
+    let keyNum = event.key;
+    let numStr = keyNum.toString();
+    currentNum += numStr;
+    document.querySelector('.screen').innerText = Number(currentNum);
+  } else {
+    console.log(event.key)
+  }
+})
+
+
 
 function numbers() {
- // if (this.keydown == (/[^1-4]/g;)) {
-  //}
   currentNum += this.innerText;
   document.querySelector('.screen').innerText = Number(currentNum);
 }
+  
 
 function add() {
   if (this.innerText == '-' && total !== 0) {
