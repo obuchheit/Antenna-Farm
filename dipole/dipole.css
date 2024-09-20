@@ -1,0 +1,12 @@
+h1 {
+  margin-bottom: 20vh;
+}
+.panel {
+  display: flex;
+  flex-direction: row;
+  background-color: lightgray;
+}
+
+.input {
+  background-color: lightblue;
+}
