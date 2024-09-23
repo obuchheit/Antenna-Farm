@@ -11,7 +11,7 @@
   <h1>Dipole/Sloping V Calculator</h1>
 
 <div class="panel">
-  <div class="input">Frequency: <input type="text"></div>
+  <div class="input">Frequency: <input type="text" placeholder="Frequency in Megahertz"></div>
   <div class="input">
     <label for="Wavelength">Wavelength:</label>
     <select name="Wavelength" id="wavelengthSelector">
@@ -20,11 +20,11 @@
       <option value="full">Full Wavelength</option>
     </select>
   </div>
-  <div class="input">Length</div>
+  <div class="input"><button id="calcButton">Calculate Length</button>Length:</div>
 </div>
 
 <div>image</div>
 
-<h3>Calcultions are based soley on resonancy length. Considerations such as materials, impedence, and environment aren't considered as of yet.</h3>
+<div class="description">*Calcultions are based soley on resonancy length. Considerations such as materials, impedence, and environment aren't considered as of yet.</div>
 </body>
 </html>
