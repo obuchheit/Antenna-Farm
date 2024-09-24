@@ -13,6 +13,14 @@ h1 {
   background-color: lightblue;
   padding: 5vh;
 }
+
+#hertzSelector {
+  position: relative;
+  margin-left: -5.5vh;
+  border: none;
+  background-color: lightgray;
+}
+
 #calcButton {
   cursor: pointer;
 }

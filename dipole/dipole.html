@@ -11,7 +11,16 @@
   <h1>Dipole/Sloping V Calculator</h1>
 
 <div class="panel">
-  <div class="input">Frequency: <input type="text" placeholder="Frequency in Megahertz"></div>
+  <div class="input">Frequency: 
+    <input type="text" placeholder="Frequency">
+    <select name="units" id="hertzSelector">
+      <option value="kilo">KHz</option>
+      <option value="mega">MHz</option>
+      <option value="giga">GHz</option>
+    </select>
+  </div>
+
+
   <div class="input">
     <label for="Wavelength">Wavelength:</label>
     <select name="Wavelength" id="wavelengthSelector">
