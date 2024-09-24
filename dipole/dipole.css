@@ -21,3 +21,15 @@ h1 {
   font-weight: 700;
   margin-top: 60vh;
 }
+
+.antennaBorder {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.antenna {
+  border-bottom: black 2px solid;
+  width: 40%;
+  margin: 10vh 1vh 0vh 1vh;
+}
+
