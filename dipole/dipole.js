@@ -17,8 +17,9 @@ function calculate() {
   console.log(frequency)
   let answer = denom/frequency;
   console.log(answer)
-  document.querySelector('.output').innerText = answer;
+  document.querySelector('.antLength').innerText = answer;
   document.querySelector('.mes').innerText = answer/2;
+  document.querySelector('.mes1').innerText = answer/2;
 }
 
 function hertzUnit() {
