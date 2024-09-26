@@ -1,6 +1,6 @@
 document.querySelector('#hertzSelector').addEventListener('change',hertzUnit)
-document.querySelector('#calcButton').addEventListener('click', calculate);
 document.querySelector('#wavelengthSelector').addEventListener('change', lengthDenom)
+document.querySelector('#calcButton').addEventListener('click', calculate);
 
 
 let denom = 468;
@@ -11,8 +11,11 @@ let frequency = 0;
 
 function calculate() {
   int = document.querySelector('#freqInput').innerText
+  console.log(int)
   frequency = base * int;
-  let answer = denom/freq;
+  console.log(frequency, base)
+  let answer = denom/frequency;
+  console.log(answer)
   document.querySelector('.output').innerText = answer;
   document.querySelector('.mes').innerText = answer/2;
 }
@@ -25,6 +28,7 @@ function hertzUnit() {
   } else {
     base = 1000000000
   }
+  console.log(base)
 }
 
 function lengthDenom() {
@@ -35,4 +39,5 @@ function lengthDenom() {
   } else {
     denom = 936
   }
+  console.log(denom)
 }
