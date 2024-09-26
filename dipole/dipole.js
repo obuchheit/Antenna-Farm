@@ -4,16 +4,17 @@ document.querySelector('#calcButton').addEventListener('click', calculate);
 
 
 let denom = 468;
-let base = 1000000;
+let base = 1;
 let frequency = 0;
 
 
 
 function calculate() {
-  int = document.querySelector('#freqInput').innerText
+  intInput = document.getElementById('freqInput')
+  int = intInput.value;
   console.log(int)
   frequency = base * int;
-  console.log(frequency, base)
+  console.log(frequency)
   let answer = denom/frequency;
   console.log(answer)
   document.querySelector('.output').innerText = answer;
@@ -24,9 +25,9 @@ function hertzUnit() {
   if (this.innerText === 'KHz') {
     base = 1000;
   } else if ( this.innerText === 'MHz') {
-    base = 1000000;
+    base = 1;
   } else {
-    base = 1000000000
+    base = .001;
   }
   console.log(base)
 }
