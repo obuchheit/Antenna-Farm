@@ -14,8 +14,8 @@
   <div class="input">Frequency: 
     <input type="text" placeholder="Frequency">
     <select name="units" id="hertzSelector">
-      <option value="kilo">KHz</option>
       <option value="mega">MHz</option>
+      <option value="kilo">KHz</option>
       <option value="giga">GHz</option>
     </select>
   </div>
@@ -29,18 +29,23 @@
       <option value="full">Full Wavelength</option>
     </select>
   </div>
-  <div class="input"><button id="calcButton">Calculate Length</button>Length:</div>
+  <div class="input output"><button id="calcButton">Calculate Length</button></div>
 </div>
 
-<div class="mesBorder">
-  <div class="mes">0 in</div>
-  <div class="mes">0 in</div>
+<div>
+  <div class="mesBorder">
+    <div class="mes">0 in</div>
+    <div class="mes">0 in</div>
+  </div>
+  
+  <div class="antennaBorder">
+    <div class="antenna"></div>
+    <div class="antenna"></div>
+  </div>
 </div>
 
-<div class="antennaBorder">
-  <div class="antenna"></div>
-  <div class="antenna"></div>
-</div>
+
+
 
 <div class="connectors">
   <span class="dot"></span>

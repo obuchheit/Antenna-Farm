@@ -7,6 +7,8 @@ h1 {
   background-color: lightgray;
   border: 5px solid gray;
   justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin-bottom: 10vh;
 }
 
 .input {
@@ -16,9 +18,14 @@ h1 {
 
 #hertzSelector {
   position: relative;
-  margin-left: -5.5vh;
+  margin-left: -8vh;
   border: none;
-  background-color: lightgray;
+  font-weight: 500;
+  background-color: white;
+}
+
+.output {
+  width: 100%;
 }
 
 #calcButton {
@@ -42,7 +49,7 @@ h1 {
   border-left: lightgray 2px solid;
   width: 40%;
   height: 1vh;
-  margin: 5vh 2vh 0vh 2vh;
+  margin: 5vh 2vh 3vh 2vh;
   text-align: center;
 }
 
@@ -61,13 +68,22 @@ h1 {
 .connectors {
   display: flex;
   justify-content: center;
-  margin-top: -1vh
+  margin-top: -1vh;
+  padding: 1vh;
 }
 
 .dot {
   border: solid black 2px;
-  height: 2vh;
-  width: 2vh;
+  background-color: gray;
+  height: 1vh;
+  width: 1vh;
   border-radius: 50%;
+  margin: -.9vh 0.7vh 0vh 0.7vh;
 }
+
+
+
+
+
+
 
