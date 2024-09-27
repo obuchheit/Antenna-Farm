@@ -3,6 +3,7 @@ let denom = 468;
 let base = 1;
 let frequency = 0;
 let answer = 0;
+let currentNum = '';
 
 document.querySelector('#hertzSelector').addEventListener('change',hertzUnit)
 document.querySelector('#wavelengthSelector').addEventListener('change', lengthDenom)
@@ -11,15 +12,26 @@ document.querySelector('#calcButton').addEventListener('click', calculate);
 document.querySelector('.lenUnit').addEventListener('click', calculate);
 
 
-//unitButton change to select attr []
+//Adds and calculates freq with every keystroke.
 
-document.addEventListener('keydown', )
+document.addEventListener('keydown', (event) => {
+
+  document.querySelector('.freqInput').innerText = currentNum
+
+  if (event.key <= 9 && event.key >= 0) {
+    let keyNum = event.key;
+    let numStr = keyNum.toString();
+    currentNum += numStr;
+    document.querySelector('.freqInput') == Number(currentNum);
+    document.querySelector('.freqInput').innerText = currentNum;
+  }
+  calculate(currentNum);
+}) 
 
 
 
 function calculate() {
-  intInput = document.getElementById('freqInput')
-  int = intInput.value;
+  int = currentNum
   frequency = base * int;
   answer = denom/frequency;
 
