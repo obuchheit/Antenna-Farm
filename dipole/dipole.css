@@ -17,11 +17,16 @@ h1 {
   border: solid black 2px;
 }
 
+.freqInput {
+  padding-right: 0;
+}
+
 #hertzSelector {
   position: relative;
-  margin-left: -8vh;
+  height: 100%;
   border: none;
   font-weight: 500;
+  font-size: xx-large;
   background-color: white;
 }
 
