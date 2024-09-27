@@ -11,7 +11,10 @@ document.querySelector('#calcButton').addEventListener('click', calculate);
 document.querySelector('.lenUnit').addEventListener('click', calculate);
 
 
-//unitButton change to select attr 
+//unitButton change to select attr []
+
+document.addEventListener('keydown', )
+
 
 
 function calculate() {
