@@ -23,7 +23,7 @@ document.addEventListener('keydown', (event) => {
     let keyNum = event.key;
     let numStr = keyNum.toString();
     currentNum += numStr;
-    document.querySelector('.freqInput') == Number(currentNum);
+    currentNum = Number(currentNum)
     document.querySelector('.freqInput').innerText = currentNum;
   } else if (event.key == 'Backspace') {
     let number = document.querySelector('.freqInput').innerText;
@@ -38,9 +38,14 @@ document.addEventListener('keydown', (event) => {
 
 
 function calculate() {
-  int = currentNum
-  frequency = base * int;
-  answer = denom/frequency;
+  if (currentNum == 0){
+    answer = 0
+  } else {
+    int = currentNum
+    frequency = base * int;
+    answer = denom/frequency;
+  }
+  console.log(currentNum, answer)
 
   document.querySelector('.antLength').innerText = answer;
   document.querySelector('.mes').innerText = answer/2;
