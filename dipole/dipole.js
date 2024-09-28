@@ -13,6 +13,7 @@ document.querySelector('.lenUnit').addEventListener('click', calculate);
 
 
 //Adds and calculates freq with every keystroke.
+//Need to debug backspace down to 0.
 
 document.addEventListener('keydown', (event) => {
 
@@ -23,6 +24,12 @@ document.addEventListener('keydown', (event) => {
     let numStr = keyNum.toString();
     currentNum += numStr;
     document.querySelector('.freqInput') == Number(currentNum);
+    document.querySelector('.freqInput').innerText = currentNum;
+  } else if (event.key == 'Backspace') {
+    let number = document.querySelector('.freqInput').innerText;
+    let text = number.toString();
+    let newNum = text.slice(0, -1);
+    currentNum = Number(newNum)
     document.querySelector('.freqInput').innerText = currentNum;
   }
   calculate(currentNum);
