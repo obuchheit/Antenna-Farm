@@ -8,9 +8,7 @@ let currentNum = '';
 
 document.querySelector('#hertzSelector').addEventListener('change',hertzUnit)
 document.querySelector('#wavelengthSelector').addEventListener('change', lengthDenom)
-document.querySelector('#calcButton').addEventListener('click', calculate);
-
-document.querySelector('.lenUnit').addEventListener('click', calculate);
+document.querySelector('.lenUnit').addEventListener('click', unitConv);
 
 
 //Adds and calculates freq with every keystroke.
@@ -45,7 +43,7 @@ function calculate() {
     frequency = base * int;
     answer = denom/frequency;
 
-
+    //Standard function
     if (document.querySelector('.lenUnit').innerText == 'Metric') {
       let feet = Math.floor(answer);
       let remainder = answer - Math.floor(answer);
@@ -54,12 +52,41 @@ function calculate() {
       remainder = remainder - Math.floor(remainder);
       let decimal = Math.round(32 * remainder);
       let decDenom = 32;
-      while (decimal % 2 == 0){
-        decimal = decimal / 2;
-        decDenom = decDenom / 2;
+      
+      if (decimal == 32) {
+        decimal = 0
+        inches += 1;
+        if (inches == 12) {
+          inches = 0;
+          feet += 1;
+        }
+      } 
+      else if (decimal > 0) {
+        while (decimal % 2 == 0){
+          decimal = decimal / 2;
+          decDenom = decDenom / 2;
+        }
       }
-      shownAnswer = `${feet}' ${inches}" ${decimal}/${decDenom}`
-    } 
+
+      if (decimal == 0) {
+        shownAnswer = `${feet}' ${inches}"`;
+      } else if (feet == 0) {
+        shownAnswer = `${inches} ${decimal}/${decDenom}"`;
+      } else {
+        shownAnswer = `${feet}' ${inches}" ${decimal}/${decDenom}"`;;
+      }
+    } else {
+      answer = answer * 0.3048
+      if (answer < 1 && answer > 0.1) {
+        let centi = 10 * currentNum;
+        shownAnswer = `${centi}cm`;
+      } else if (answer < 0.1) {
+        let mili = 100 * currentNum;
+        shownAnswer = `${mili}mm`;
+      } else {
+        shownAnswer = `${answer}Meters`;
+      }
+    }
   }
   
   document.querySelector('.antLength').innerText = shownAnswer;
@@ -87,4 +114,13 @@ function lengthDenom() {
     denom = 936
   }
   console.log(denom)
+}
+
+function unitConv() {
+  if (document.querySelector('.lenUnit').innerText == 'Metric') {
+    document.querySelector('.lenUnit').innerText = 'Standard';
+  } else {
+    document.querySelector('.lenUnit').innerText = 'Metric';
+  }
+  calculate(currentNum)
 }
