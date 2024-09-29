@@ -78,10 +78,10 @@ function calculate() {
     } else {
       answer = answer * 0.3048
       if (answer < 1 && answer > 0.1) {
-        let centi = 10 * currentNum;
+        let centi = 10 * answer;
         shownAnswer = `${centi}cm`;
       } else if (answer < 0.1) {
-        let mili = 100 * currentNum;
+        let mili = 100 * answer;
         shownAnswer = `${mili}mm`;
       } else {
         shownAnswer = `${answer}Meters`;
