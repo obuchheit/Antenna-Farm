@@ -3,6 +3,7 @@ let denom = 468;
 let base = 1;
 let frequency = 0;
 let answer = 0;
+let shownAnswer = '';
 let currentNum = '';
 
 document.querySelector('#hertzSelector').addEventListener('change',hertzUnit)
@@ -43,17 +44,25 @@ function calculate() {
     int = currentNum
     frequency = base * int;
     answer = denom/frequency;
+
+
     if (document.querySelector('.lenUnit').innerText == 'Metric') {
       let feet = Math.floor(answer);
       let remainder = answer - Math.floor(answer);
       remainder = remainder * 12;
-      let inches = Math.floor(remainder)
-      remainder = remainder - Math.floor(remainder) 
-      let decimal = 32 * remainder
-    }
+      let inches = Math.floor(remainder);
+      remainder = remainder - Math.floor(remainder);
+      let decimal = Math.round(32 * remainder);
+      let decDenom = 32;
+      while (decimal % 2 == 0){
+        decimal = decimal / 2;
+        decDenom = decDenom / 2;
+      }
+      shownAnswer = `${feet}' ${inches}" ${decimal}/${decDenom}`
+    } 
   }
   
-  document.querySelector('.antLength').innerText = answer;
+  document.querySelector('.antLength').innerText = shownAnswer;
   document.querySelector('.mes').innerText = answer/2;
   document.querySelector('.mes1').innerText = answer/2;
 }
