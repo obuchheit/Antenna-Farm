@@ -99,22 +99,22 @@ function calculate() {
 //Converts the hertz unit
 //Bug: doesnt calc back, prob innerText
 function hertzUnit() {
-  if (this.value === 'KHz') {
-    base = 1000;
-  } else if ( this.value === 'MHz') {
+  if (this.value === 'kilo') {
+    base = 0.01;
+  } else if ( this.value === 'mega') {
     base = 1;
   } else {
-    base = .001;
+    base = 1000;
   }
   calculate(currentNum);
 }
 //Adds the ability to change the wavelength of an antenna.
 function lengthDenom() {
-  if (this.value === '1/4') {
+  if (this.value === 'quarter') {
     denom = 234
-  }else if (this.value === '1/2') {
+  }else if (this.value === 'half') {
     denom = 468
-  } else if (this.value == 'Full') {
+  } else {
     denom = 936
   }
   calculate(currentNum);
