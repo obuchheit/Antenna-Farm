@@ -37,10 +37,10 @@ document.addEventListener('keydown', (event) => {
 
 function calculate() {
   if (currentNum == 0){
-    answer = 0
+    answer = 0;
+    shownAnswer = 0;
   } else {
-    int = currentNum
-    frequency = base * int;
+    frequency = base * currentNum;
     answer = denom/frequency;
 
     //Standard function
@@ -75,6 +75,8 @@ function calculate() {
       } else {
         shownAnswer = `${feet}' ${inches}" ${decimal}/${decDenom}"`;;
       }
+
+      //Metric Function
     } else {
       answer = answer * 0.3048
       if (answer < 1 && answer > 0.1) {
@@ -94,28 +96,30 @@ function calculate() {
   document.querySelector('.mes1').innerText = answer/2;
 }
 
+//Converts the hertz unit
+//Bug: doesnt calc back, prob innerText
 function hertzUnit() {
-  if (this.innerText === 'KHz') {
+  if (this.value === 'KHz') {
     base = 1000;
-  } else if ( this.innerText === 'MHz') {
+  } else if ( this.value === 'MHz') {
     base = 1;
   } else {
     base = .001;
   }
-  console.log(base)
+  calculate(currentNum);
 }
-
+//Adds the ability to change the wavelength of an antenna.
 function lengthDenom() {
-  if (this.innerText == '1/4') {
+  if (this.value === '1/4') {
     denom = 234
-  }else if (this.innerText == '1/2') {
+  }else if (this.value === '1/2') {
     denom = 468
-  } else {
+  } else if (this.value == 'Full') {
     denom = 936
   }
-  console.log(denom)
+  calculate(currentNum);
 }
-
+//Allows user to convert from metric to satandard.
 function unitConv() {
   if (document.querySelector('.lenUnit').innerText == 'Metric') {
     document.querySelector('.lenUnit').innerText = 'Standard';
