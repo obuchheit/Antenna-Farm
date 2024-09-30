@@ -9,6 +9,7 @@ let currentNum = '';
 document.querySelector('#hertzSelector').addEventListener('change',hertzUnit)
 document.querySelector('#wavelengthSelector').addEventListener('change', lengthDenom)
 document.querySelector('.lenUnit').addEventListener('click', unitConv);
+document.querySelector('#quickBands').addEventListener('change', bandsCalc);
 
 
 //Adds and calculates freq with every keystroke.
@@ -70,6 +71,7 @@ function calculate() {
 
       if (decimal == 0) {
         shownAnswer = `${feet}' ${inches}"`;
+        halfShownAnswer = 
       } else if (feet == 0) {
         shownAnswer = `${inches} ${decimal}/${decDenom}"`;
       } else {
@@ -92,8 +94,8 @@ function calculate() {
   }
   
   document.querySelector('.antLength').innerText = shownAnswer;
-  document.querySelector('.mes').innerText = answer/2;
-  document.querySelector('.mes1').innerText = answer/2;
+  document.querySelector('.mes').innerText = halfShownAnswer;
+  document.querySelector('.mes1').innerText = halfShownAnswer;
 }
 
 //Converts the hertz unit
@@ -127,4 +129,10 @@ function unitConv() {
     document.querySelector('.lenUnit').innerText = 'Metric';
   }
   calculate(currentNum)
+}
+
+function bandsCalc() {
+  currentNum = this.value;
+  document.querySelector('.freqInput').innerText = currentNum;
+  calculate(currentNum);
 }
