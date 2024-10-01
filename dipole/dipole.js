@@ -83,45 +83,45 @@ function calculate() {
         shownAnswer = `${feet}' ${inches}" ${decimal}/${decDenom}"`;;
       }
 
-    //Half Measurement function
+      //Half Measurement function
 
-    if (halfFrac == 32) {
-      halfFrac = 0
-      halfInches += 1;
-      if (halfInches == 12) {
-        halfInches = 0;
-        halfFeet += 1;
+      if (halfFrac == 32) {
+        halfFrac = 0
+        halfInches += 1;
+        if (halfInches == 12) {
+          halfInches = 0;
+          halfFeet += 1;
+        }
+      } 
+      else if (halfFrac > 0) {
+        while (halfFrac % 2 == 0){
+          halfFrac = halfFrac / 2;
+          halfDecDenom = halfDecDenom / 2;
+        }
       }
-    } 
-    else if (halfFrac > 0) {
-      while (halfFrac % 2 == 0){
-        halfFrac = halfFrac / 2;
-        halfDecDenom = halfDecDenom / 2;
-      }
-    }
 
-    if (halfFrac == 0) {
-      halfShownAnswer = `${halfFeet}' ${halfInches}"`;
-    } else if (halfFeet == 0) {
-      halfShownAnswer = `${halfInches} ${halfFrac}/${halfDecDenom}"`;
-    } else {
-      halfShownAnswer = `${halfFeet}' ${halfInches}" ${halfFrac}/${halfDecDenom}"`;
-    }
+      if (halfFrac == 0) {
+        halfShownAnswer = `${halfFeet}' ${halfInches}"`;
+      } else if (halfFeet == 0) {
+        halfShownAnswer = `${halfInches} ${halfFrac}/${halfDecDenom}"`;
+      } else {
+        halfShownAnswer = `${halfFeet}' ${halfInches}" ${halfFrac}/${halfDecDenom}"`;
+      }
 
       //Metric Function
     } else {
       answer = answer * 0.3048
       if (answer < 1 && answer > 0.1) {
         let centi = 10 * answer;
-        shownAnswer = `${centi}cm`;
-        halfShownAnswer = `${centi/2}cm`;
+        shownAnswer = `${(centi).toFixed(2)}cm`;
+        halfShownAnswer = `${(centi/2).toFixed(2)}cm`;
       } else if (answer < 0.1) {
         let mili = 100 * answer;
-        shownAnswer = `${mili}mm`;
-        halfShownAnswer = `${mili/2}mm`;
+        shownAnswer = `${(mili).toFixed(1)}mm`;
+        halfShownAnswer = `${(mili/2).toFixed(1)}mm`;
       } else {
-        shownAnswer = `${answer}Meters`;
-        halfShownAnswer = `${half/answer}Meters`
+        shownAnswer = `${(answer).toFixed(3)}Meters`;
+        halfShownAnswer = `${(answer/2).toFixed(3)}Meters`
       }
     }
   }
@@ -132,7 +132,6 @@ function calculate() {
 }
 
 //Converts the hertz unit
-//Bug: doesnt calc back, prob innerText
 function hertzUnit() {
   if (this.value === 'kilo') {
     base = 0.01;
@@ -156,14 +155,15 @@ function lengthDenom() {
 }
 //Allows user to convert from metric to satandard.
 function unitConv() {
-  if (document.querySelector('.lenUnit').innerText == 'Metric') {
-    document.querySelector('.lenUnit').innerText = 'Standard';
+  if (this.innerText === 'Metric') {
+    this.innerText = 'Standard';
   } else {
-    document.querySelector('.lenUnit').innerText = 'Metric';
+    this.innerText = 'Metric';
   }
   calculate(currentNum)
 }
 
+//Calculates Pre-Configured Bands
 function bandsCalc() {
   currentNum = this.value;
   document.querySelector('.freqInput').innerText = currentNum;
