@@ -4,6 +4,7 @@ let base = 1;
 let frequency = 0;
 let answer = 0;
 let shownAnswer = '';
+let halfShownAnswer = '';
 let currentNum = '';
 
 document.querySelector('#hertzSelector').addEventListener('change',hertzUnit)
@@ -101,10 +102,10 @@ function calculate() {
 
     if (halfFrac == 0) {
       halfShownAnswer = `${halfFeet}' ${halfInches}"`;
-    } else if (feet == 0) {
+    } else if (halfFeet == 0) {
       halfShownAnswer = `${halfInches} ${halfFrac}/${halfDecDenom}"`;
     } else {
-      halfShownAnswer = `${halfFeet}' ${halfInches}" ${halfFrac}/${halfDecDenom}"`;;
+      halfShownAnswer = `${halfFeet}' ${halfInches}" ${halfFrac}/${halfDecDenom}"`;
     }
 
       //Metric Function
@@ -113,11 +114,14 @@ function calculate() {
       if (answer < 1 && answer > 0.1) {
         let centi = 10 * answer;
         shownAnswer = `${centi}cm`;
+        halfShownAnswer = `${centi/2}cm`;
       } else if (answer < 0.1) {
         let mili = 100 * answer;
         shownAnswer = `${mili}mm`;
+        halfShownAnswer = `${mili/2}mm`;
       } else {
         shownAnswer = `${answer}Meters`;
+        halfShownAnswer = `${half/answer}Meters`
       }
     }
   }
