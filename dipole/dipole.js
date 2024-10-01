@@ -53,6 +53,11 @@ function calculate() {
       remainder = remainder - Math.floor(remainder);
       let decimal = Math.round(32 * remainder);
       let decDenom = 32;
+
+      let halfFeet = feet/2;
+      let halfInches = inches/2;
+      let halfFrac = decimal/2;
+      let halfDecDenom = 32;
       
       if (decimal == 32) {
         decimal = 0
@@ -71,12 +76,36 @@ function calculate() {
 
       if (decimal == 0) {
         shownAnswer = `${feet}' ${inches}"`;
-        halfShownAnswer = 
       } else if (feet == 0) {
         shownAnswer = `${inches} ${decimal}/${decDenom}"`;
       } else {
         shownAnswer = `${feet}' ${inches}" ${decimal}/${decDenom}"`;;
       }
+
+    //Half Measurement function
+
+    if (halfFrac == 32) {
+      halfFrac = 0
+      halfInches += 1;
+      if (halfInches == 12) {
+        halfInches = 0;
+        halfFeet += 1;
+      }
+    } 
+    else if (halfFrac > 0) {
+      while (halfFrac % 2 == 0){
+        halfFrac = halfFrac / 2;
+        halfDecDenom = halfDecDenom / 2;
+      }
+    }
+
+    if (halfFrac == 0) {
+      halfShownAnswer = `${halfFeet}' ${halfInches}"`;
+    } else if (feet == 0) {
+      halfShownAnswer = `${halfInches} ${halfFrac}/${halfDecDenom}"`;
+    } else {
+      halfShownAnswer = `${halfFeet}' ${halfInches}" ${halfFrac}/${halfDecDenom}"`;;
+    }
 
       //Metric Function
     } else {
