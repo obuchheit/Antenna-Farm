@@ -8,6 +8,8 @@
   <script async type="text/javascript" src="moxon.js"></script>
 </head>
 <body>
+  <h1>Dipole/Sloping V Calculator</h1>
+
   <div class="panel">
     <div class="input freqHrtz">
       <div class="freqInput">0</div>
@@ -19,8 +21,8 @@
         </select>
       </div>
     </div>
-  
-  
+
+
     <div class="input">
       <label for="Wavelength">Wavelength:</label>
       <select name="Wavelength" id="wavelengthSelector">
@@ -36,25 +38,35 @@
         <option value="435">70 Centimeter</option>
         <option value="146">2 Meter</option>
         <option value="155">2 Meter Ext.</option>
+        <option value="14.175">20 Meter</option>
+        <option value="7.15">40 Meter</option>
+      </select>
     </div>
-  
+
     <div class="answer input output">
       <p class="antLength"></p> 
       <button class="lenUnit">Metric</button>
     </div>
   </div>
   
-  <div>
-    <div class="mesBorder">
-      <div class="mes">0 in</div>
-      <div class="mes mes1">0 in</div>
+
+  <div class="antennaDisplay">
+    <div class="connectors">
+      <span class="dot"></span>
+      <span class="dot"></span>
     </div>
     
-    <div class="antennaBorder">
-      <div class="antenna"></div>
-      <div class="antenna"></div>
     </div>
+    <div class="antennaBorder">
+      <div class="antenna leftEl"></div>
+      <div class="antenna rightEl"></div>
+    </div>
+      
+    <div class="reflectorContainer">
+      <div class="reflector"></div>
+    </div>
+
   </div>
-  
+   
 </body>
 </html>
