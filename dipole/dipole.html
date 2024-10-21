@@ -8,69 +8,73 @@
   <script async type="text/javascript" src="dipole.js"></script>
 </head>
 <body>
-  <h1>Dipole/Sloping V Calculator</h1>
+  <header>
+    <h1>Dipole/Sloping V Calculator</h1>
+  </header>
 
-<div class="panel">
-  <div class="input freqHrtz">
-    <div class="freqInput">0</div>
-    <div>
-      <select name="units" id="hertzSelector">
-        <option value="mega">MHz</option>
-        <option value="kilo">KHz</option>
-        <option value="giga">GHz</option>
+  <div class="panel">
+    <div class="input freqHrtz">
+      <div class="freqInput">0</div>
+      <div>
+        <select name="units" id="hertzSelector">
+          <option value="mega">MHz</option>
+          <option value="kilo">KHz</option>
+          <option value="giga">GHz</option>
+        </select>
+      </div>
+    </div>
+
+
+    <div class="input">
+      <label for="Wavelength">Wavelength:</label>
+      <select name="Wavelength" id="wavelengthSelector">
+        <option value="half">1/2</option>
+        <option value="quarter">1/4</option>
+        <option value="full">Full</option>
       </select>
+    </div>
+    <div class="input">
+      <label for="bands">Quick Bands: </label>
+      <select name="QuickBands" id="quickBands">
+        <option>Select a band</option>
+        <option value="435">70 Centimeter</option>
+        <option value="146">2 Meter</option>
+        <option value="155">2 Meter Ext.</option>
+        <option value="14.175">20 Meter</option>
+        <option value="7.15">40 Meter</option>
+      </select>
+    </div>
+
+    <div class="answer input output">
+      <p class="antLength"></p> 
+      <button class="lenUnit">Metric</button>
+    </div>
+  </div>
+
+  <div>
+    <div class="mesBorder">
+      <div class="mes">0 in</div>
+      <div class="mes mes1">0 in</div>
+    </div>
+    
+    <div class="antennaBorder">
+      <div class="antenna"></div>
+      <div class="antenna"></div>
     </div>
   </div>
 
 
-  <div class="input">
-    <label for="Wavelength">Wavelength:</label>
-    <select name="Wavelength" id="wavelengthSelector">
-      <option value="half">1/2</option>
-      <option value="quarter">1/4</option>
-      <option value="full">Full</option>
-    </select>
-  </div>
-  <div class="input">
-    <label for="bands">Quick Bands: </label>
-    <select name="QuickBands" id="quickBands">
-      <option>Select a band</option>
-      <option value="435">70 Centimeter</option>
-      <option value="146">2 Meter</option>
-      <option value="155">2 Meter Ext.</option>
-      <option value="14.175">20 Meter</option>
-      <option value="7.15">40 Meter</option>
-    </select>
+
+
+  <div class="connectors">
+    <span class="dot"></span>
+    <span class="dot"></span>
   </div>
 
-  <div class="answer input output">
-    <p class="antLength"></p> 
-    <button class="lenUnit">Metric</button>
-  </div>
-</div>
 
-<div>
-  <div class="mesBorder">
-    <div class="mes">0 in</div>
-    <div class="mes mes1">0 in</div>
-  </div>
   
-  <div class="antennaBorder">
-    <div class="antenna"></div>
-    <div class="antenna"></div>
-  </div>
-</div>
-
-
-
-
-<div class="connectors">
-  <span class="dot"></span>
-  <span class="dot"></span>
-</div>
-
-
-
-<div class="description">*Calcultions are based soley on resonancy length. Considerations such as materials, impedence, and environment aren't considered as of yet.</div>
 </body>
+<footer>
+  <div class="description">*Calcultions are based soley on resonancy length. Considerations such as materials, impedence, and environment aren't considered as of yet.</div>
+</footer>
 </html>
