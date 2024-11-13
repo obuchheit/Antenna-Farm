@@ -18,7 +18,7 @@ const router = createBrowserRouter([
                 element: <HomePage />
             },
             {
-                path: "/calulator",
+                path: "/calculator",
                 element: <Calculator />
             },
             {
