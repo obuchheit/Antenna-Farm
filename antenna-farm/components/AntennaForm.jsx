@@ -7,24 +7,22 @@ function AntennaForm() {
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Row className="mb-3">
                 <Form.Group as={Col} md="4" controlId="validationCustom01">
-                <Form.Label>First name</Form.Label>
+                <Form.Label>Frequency</Form.Label>
                 <Form.Control
                     required
                     type="text"
-                    placeholder="First name"
+                    placeholder="Freq"
                     defaultValue="Mark"
                 />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group as={Col} md="4" controlId="validationCustom02">
                 <Form.Label>Last name</Form.Label>
                 <Form.Control
                     required
                     type="text"
-                    placeholder="Last name"
-                    defaultValue="Otto"
+                    placeholder="Wavelength"
+                    defaultValue=""
                 />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 </Form.Group>
                 <Form.Group as={Col} md="4" controlId="validationCustomUsername">
                 <Form.Label>Username</Form.Label>
