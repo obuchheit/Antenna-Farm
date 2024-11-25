@@ -4,9 +4,7 @@ function Dipole() {
     return (
         <>
             <h1>Dipole</h1>
-            
             <AntennaForm />
-
             <div>
                 <div class="mesBorder">
                     <div class="mes">0 in</div>

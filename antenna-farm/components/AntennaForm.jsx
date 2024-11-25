@@ -2,7 +2,14 @@ import { useState, useEffect } from "react"
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap"
 
 function AntennaForm() {
-    <>
+    const [validated, setValidated] = useState(false);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        // Add form validation logic here
+        setValidated(true);  // For example, validate the form
+    };
+    return(
         <div className="panel">
         <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Row className="mb-3">
@@ -75,7 +82,7 @@ function AntennaForm() {
             </Form>
             
         </div>
-    </>
+    )
 }
 
 export default AntennaForm

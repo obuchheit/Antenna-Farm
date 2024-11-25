@@ -5,6 +5,7 @@ import Calculator from "../pages/Calculator.jsx";
 import Dipole from "../pages/Dipole.jsx";
 import Moxon from "../pages/Moxon.jsx";
 import Yagi from "../pages/Yagi.jsx";
+import AntennaForm from "../components/AntennaForm.jsx";
 import Error404Page from "../pages/Error404Page.jsx"
 
 
@@ -18,12 +19,12 @@ const router = createBrowserRouter([
                 element: <HomePage />
             },
             {
-                path: "/calculator",
-                element: <Calculator />
-            },
-            {
                 path: "/dipole",
                 element: <Dipole />
+            },
+            {
+                path: "/calculator",
+                element: <Calculator />
             },
             {
                 path: "/moxon",
