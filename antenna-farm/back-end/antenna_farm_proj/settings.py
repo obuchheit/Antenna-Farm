@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'user_app',
     'user_antenna_app',
+    'calculator_app',
 ]
 
 MIDDLEWARE = [
