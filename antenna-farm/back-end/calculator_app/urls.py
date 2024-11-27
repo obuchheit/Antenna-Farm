@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import Calculator
+from . import views
+
 
 urlpatterns = [
-    path('calculate/', Calculator.as_view(), name='calculator')
+    path('calculate/', views.calculate, name='calculator')
 ]
