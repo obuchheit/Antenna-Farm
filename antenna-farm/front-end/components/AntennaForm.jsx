@@ -1,86 +1,86 @@
 import { useState, useEffect } from "react"
-import { Button, Col, Form, InputGroup, Row } from "react-bootstrap"
+import { Form } from "react-bootstrap"
+import axios from "axios";
+import { useLocation } from "react-router-dom";
+
 
 function AntennaForm() {
-    const [validated, setValidated] = useState(false);
+    const antenna = useLocation(); // antenna.pathname
+    const [freq, setFreq] = useState('');
+    const [hertz, setHertz] = useState('MHz');
+    const [waveLength, setWaveLength] = useState('1/2');
+    const [unit, setUnit] = useState('Standard');
+    const [result, setResult] = useState(null);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Add form validation logic here
-        setValidated(true);  // For example, validate the form
+
+    const handleChange = async() => {
+        const response = await fetch(`http:/127.0.0.1:8000/api/v1/`);
+        const data = await response.json();
+        console.log("API Respnse:", data);
+        setResult(data.result);
     };
+
+    useEffect(() => {
+        
+        //console.log(antenna)
+    }, [freq, hertz, waveLength, unit]);
+
     return(
         <div className="panel">
-        <Form noValidate validated={validated} onSubmit={handleSubmit}>
-            <Row className="mb-3">
-                <Form.Group as={Col} md="4" controlId="validationCustom01">
-                <Form.Label>Frequency</Form.Label>
-                <Form.Control
-                    required
-                    type="text"
-                    placeholder="Freq"
-                    defaultValue="Mark"
+            <div class="input freqHrtz">
+                <input
+                    type="number"
+                    value={freq}
+                    onChange={(e) => setFreq(e.target.value)}
+                    placeholder="Enter Frequency"
                 />
-                </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationCustom02">
-                <Form.Label>Last name</Form.Label>
-                <Form.Control
-                    required
-                    type="text"
-                    placeholder="Wavelength"
-                    defaultValue=""
-                />
-                </Form.Group>
-                <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                <Form.Label>Username</Form.Label>
-                <InputGroup hasValidation>
-                    <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-                    <Form.Control
-                    type="text"
-                    placeholder="Username"
-                    aria-describedby="inputGroupPrepend"
-                    required
-                    />
-                    <Form.Control.Feedback type="invalid">
-                    Please choose a username.
-                    </Form.Control.Feedback>
-                </InputGroup>
-                </Form.Group>
-            </Row>
-            <Row className="mb-3">
-                <Form.Group as={Col} md="6" controlId="validationCustom03">
-                <Form.Label>City</Form.Label>
-                <Form.Control type="text" placeholder="City" required />
-                <Form.Control.Feedback type="invalid">
-                    Please provide a valid city.
-                </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group as={Col} md="3" controlId="validationCustom04">
-                <Form.Label>State</Form.Label>
-                <Form.Control type="text" placeholder="State" required />
-                <Form.Control.Feedback type="invalid">
-                    Please provide a valid state.
-                </Form.Control.Feedback>
-                </Form.Group>
-                <Form.Group as={Col} md="3" controlId="validationCustom05">
-                <Form.Label>Zip</Form.Label>
-                <Form.Control type="text" placeholder="Zip" required />
-                <Form.Control.Feedback type="invalid">
-                    Please provide a valid zip.
-                </Form.Control.Feedback>
-                </Form.Group>
-            </Row>
-            <Form.Group className="mb-3">
-                <Form.Check
-                required
-                label="Agree to terms and conditions"
-                feedback="You must agree before submitting."
-                feedbackType="invalid"
-                />
-            </Form.Group>
-            <Button type="submit">Submit form</Button>
-            </Form>
-            
+                <div>
+                    <select 
+                    value={hertz} 
+                    onChange={(e) => setHertz(e.target.value)} 
+                    id="hertzSelector">
+                        <option value="1">MHz</option>
+                        <option value=".001">KHz</option>
+                        <option value="1000">GHz</option>
+                    </select>
+                </div>
+
+                </div>
+
+
+                <div class="input">
+                    <label for="Wavelength">Wavelength:</label>
+                    <select 
+                    value={waveLength}
+                    onChange={(e) => setWaveLength(e.target.value)}
+                    id="wavelengthSelector">
+                        <option value="half">1/2</option>
+                        <option value="quarter">1/4</option>
+                        <option value="full">Full</option>
+                    </select>
+                </div>
+
+                {/* Add useState for Quick Bands */}
+                <div class="input">
+                    <label for="bands">Quick Bands: </label>
+                    <select name="QuickBands" id="quickBands">
+                        <option>Select a band</option>
+                        <option value="435">70 Centimeter</option>
+                        <option value="146">2 Meter</option>
+                        <option value="155">2 Meter Ext.</option>
+                        <option value="14.175">20 Meter</option>
+                        <option value="7.15">40 Meter</option>
+                    </select>
+                </div>
+
+                <div>
+                    <button>Calculate</button>
+                </div>
+
+                <div class="answer input output">
+                    <p class="antLength"></p> 
+                    <button class="lenUnit">Metric</button>
+                </div>
         </div>
     )
 }
