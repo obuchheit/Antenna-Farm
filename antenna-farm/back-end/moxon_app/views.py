@@ -34,14 +34,14 @@ def moxon_calculate(request):
                 return f"{whole_feet}' {whole_inches} {numerator}/{denominator}\""
             
 
-        if unit == "standard":
+        # if unit == "standard":
 
-        elif unit == "metric":
-
-            
+        # elif unit == "metric":
 
 
 
 
+
+        
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)
