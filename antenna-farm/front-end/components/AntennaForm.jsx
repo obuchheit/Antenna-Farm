@@ -9,7 +9,16 @@ function AntennaForm({ onDataFetched }) {
     const [freq, setFreq] = useState('');
     const [hertz, setHertz] = useState('1');
     const [waveLength, setWaveLength] = useState('half');
-    const [unit, setUnit] = useState('standard');    
+    const [unit, setUnit] = useState('standard'); 
+
+    const [elements, setElements] = useState('5');
+    
+    const [diameter, setDiameter] = useState('5');
+    const [material, setMaterial] = useState('copper');
+
+    const isYagi = antenna.pathname === '/yagi';
+
+    
 
     const handleChange = async() => {
 
@@ -27,7 +36,7 @@ function AntennaForm({ onDataFetched }) {
         }
     };
 
-    const handleButton = () => {
+    const handleUnitButton = () => {
         if (unit === 'metric') {
             setUnit('standard')
         }
@@ -81,7 +90,10 @@ function AntennaForm({ onDataFetched }) {
                 {/* Add useState for Quick Bands */}
                 <div className="input">
                     <label>Quick Bands: </label>
-                    <select name="QuickBands" id="quickBands">
+                    <select 
+                    value={freq} 
+                    id="quickBands"
+                    onChange={(e) => setFreq(e.target.value)}>
                         <option>Select a band</option>
                         <option value="435">70 Centimeter</option>
                         <option value="146">2 Meter</option>
@@ -90,10 +102,11 @@ function AntennaForm({ onDataFetched }) {
                         <option value="7.15">40 Meter</option>
                     </select>
                 </div>
+                
 
                 <div className="answer input output">
                     <p className="antLength"></p> 
-                    <button onClick={handleButton} className="lenUnit">Metric</button>
+                    <button onClick={handleUnitButton} className="lenUnit">Metric</button>
                 </div>
         </div>
     )

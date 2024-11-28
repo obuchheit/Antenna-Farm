@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'user_antenna_app',
     'calculator_app',
     'dipole_app',
+    'moxon_app',
 ]
 
 MIDDLEWARE = [
