@@ -1,4 +1,3 @@
-
 let denom = 468;
 let base = 1;
 let frequency = 0;
