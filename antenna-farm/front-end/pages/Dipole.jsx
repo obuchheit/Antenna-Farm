@@ -1,25 +1,33 @@
+import { useState } from "react"
 import AntennaForm from "../components/AntennaForm"
 
 function Dipole() {
+    const [data, setData] = useState(null);
+
+    const updateData = (newData) => {
+        setData(newData);
+        console.log("Fetched Data:", newData)
+    };
+
     return (
         <>
             <h1>Dipole</h1>
-            <AntennaForm />
+            <AntennaForm onDataFetched={updateData}/>
             <div>
-                <div class="mesBorder">
-                    <div class="mes">0 in</div>
-                    <div class="mes mes1">0 in</div>
+                <div className="mesBorder">
+                    <div className="mes">{data ? `${data.elementLength}` : "0 in"}</div>
+                    <div className="mes mes1">{data ? `${data.elementLength}` : "0 in"}</div>
                 </div>
                 
-                <div class="antennaBorder">
-                    <div class="antenna"></div>
-                    <div class="antenna"></div>
+                <div className="antennaBorder">
+                    <div className="antenna"></div>
+                    <div className="antenna"></div>
                 </div>
             </div>
 
-            <div class="connectors">
-                <span class="dot"></span>
-                <span class="dot"></span>
+            <div className="connectors">
+                <span className="dot"></span>
+                <span className="dot"></span>
             </div>
         </>
     )

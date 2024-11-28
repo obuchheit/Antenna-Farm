@@ -4,30 +4,48 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 
 
-function AntennaForm() {
+function AntennaForm({ onDataFetched }) {
     const antenna = useLocation(); // antenna.pathname
     const [freq, setFreq] = useState('');
-    const [hertz, setHertz] = useState('MHz');
-    const [waveLength, setWaveLength] = useState('1/2');
-    const [unit, setUnit] = useState('Standard');
-    const [result, setResult] = useState(null);
-
+    const [hertz, setHertz] = useState('1');
+    const [waveLength, setWaveLength] = useState('half');
+    const [unit, setUnit] = useState('standard');    
 
     const handleChange = async() => {
-        const response = await fetch(`http:/127.0.0.1:8000/api/v1/`);
-        const data = await response.json();
-        console.log("API Respnse:", data);
-        setResult(data.result);
+
+        try{      
+            const url = `http://127.0.0.1:8000/api/v1${antenna.pathname}/?freq=${freq}&hertz=${hertz}&waveLength=${waveLength}&unit=${unit}`;      
+            const response = await axios.get(url);
+            console.log("API Respnse:", response.data);
+            onDataFetched(response.data);
+
+        }
+        catch (error) {
+            console.error("Error fetching data:", error.message);
+            console.error("Error response:", error.response);
+            console.error("Request URL:", error.config.url);
+        }
     };
 
+    const handleButton = () => {
+        if (unit === 'metric') {
+            setUnit('standard')
+        }
+        else {
+            setUnit('metric')
+        }
+    }
+
     useEffect(() => {
-        
-        //console.log(antenna)
+        if (freq && hertz && waveLength && unit) {
+            handleChange();
+        }
+
     }, [freq, hertz, waveLength, unit]);
 
     return(
         <div className="panel">
-            <div class="input freqHrtz">
+            <div className="input freqHrtz">
                 <input
                     type="number"
                     value={freq}
@@ -48,8 +66,8 @@ function AntennaForm() {
                 </div>
 
 
-                <div class="input">
-                    <label for="Wavelength">Wavelength:</label>
+                <div className="input">
+                    <label>Wavelength:</label>
                     <select 
                     value={waveLength}
                     onChange={(e) => setWaveLength(e.target.value)}
@@ -61,8 +79,8 @@ function AntennaForm() {
                 </div>
 
                 {/* Add useState for Quick Bands */}
-                <div class="input">
-                    <label for="bands">Quick Bands: </label>
+                <div className="input">
+                    <label>Quick Bands: </label>
                     <select name="QuickBands" id="quickBands">
                         <option>Select a band</option>
                         <option value="435">70 Centimeter</option>
@@ -73,13 +91,9 @@ function AntennaForm() {
                     </select>
                 </div>
 
-                <div>
-                    <button>Calculate</button>
-                </div>
-
-                <div class="answer input output">
-                    <p class="antLength"></p> 
-                    <button class="lenUnit">Metric</button>
+                <div className="answer input output">
+                    <p className="antLength"></p> 
+                    <button onClick={handleButton} className="lenUnit">Metric</button>
                 </div>
         </div>
     )

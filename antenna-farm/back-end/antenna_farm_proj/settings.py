@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'user_app',
     'user_antenna_app',
     'calculator_app',
+    'dipole_app',
 ]
 
 MIDDLEWARE = [
