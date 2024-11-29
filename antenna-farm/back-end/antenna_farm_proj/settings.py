@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'calculator_app',
     'dipole_app',
     'moxon_app',
+    'yagi_app',
 ]
 
 MIDDLEWARE = [

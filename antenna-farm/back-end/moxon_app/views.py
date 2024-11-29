@@ -7,7 +7,7 @@ def moxon_calculate(request):
         wave_length = request.GET.get('waveLength', 'half')
         unit = request.GET.get('unit', 'standard')
         hertz = float(request.GET.get('hertz', 1))
-        diameter = 1
+        diameter = float(request.GET.get('diameter', 1.6))
 
         freq = freq * hertz
 
@@ -44,11 +44,32 @@ def moxon_calculate(request):
         c = 0.001809523381 * (dw * dw) + 0.01780952381 * dw + 0.05164285714
         d = 0.001 * dw + 0.07178571429
 
+        a = a * wave / 1000  
+        b = b * wave / 1000  
+        c = c * wave / 1000  
+        d = d * wave / 1000
 
+        if unit == 'metric':
+            a = f"{a} meters"
+            b = f"{b} meters"
+            c = f"{c} meters"
+            d = f"{d} meters"
 
+        elif unit == 'standard':
+            a = a * 3.28084
+            b = b * 3.28084
+            c = c * 3.28084
+            d = d * 3.28084
 
+            a = feet_to_inches(a)
+            b = feet_to_inches(b)  
+            c = feet_to_inches(c)  
+            d = feet_to_inches(d) 
 
+        else:
+            return JsonResponse('Null')
 
-
+        return JsonResponse({'a': a, 'b': b, 'c': c, 'd': d})
+    
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)

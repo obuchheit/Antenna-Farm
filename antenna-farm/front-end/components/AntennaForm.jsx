@@ -13,17 +13,26 @@ function AntennaForm({ onDataFetched }) {
 
     const [elements, setElements] = useState('5');
     
-    const [diameter, setDiameter] = useState('5');
+    const [diameter, setDiameter] = useState('1.6');
     const [material, setMaterial] = useState('copper');
 
     const isYagi = antenna.pathname === '/yagi';
+    const isMoxon = antenna.pathname === '/moxon';
 
-    
+    const urlMake = () => {
+        if (isMoxon === true) {
+            return `diameter=${diameter}`
+        }
+        else {
+            return ''
+        }
+    }
 
     const handleChange = async() => {
 
         try{      
-            const url = `http://127.0.0.1:8000/api/v1${antenna.pathname}/?freq=${freq}&hertz=${hertz}&waveLength=${waveLength}&unit=${unit}`;      
+            const addEnd = urlMake()
+            const url = `http://127.0.0.1:8000/api/v1${antenna.pathname}/?freq=${freq}&hertz=${hertz}&waveLength=${waveLength}&unit=${unit}&${addEnd}`;      
             const response = await axios.get(url);
             console.log("API Respnse:", response.data);
             onDataFetched(response.data);
@@ -50,7 +59,7 @@ function AntennaForm({ onDataFetched }) {
             handleChange();
         }
 
-    }, [freq, hertz, waveLength, unit]);
+    }, [freq, hertz, waveLength, unit, diameter]);
 
     return(
         <div className="panel">
@@ -102,6 +111,19 @@ function AntennaForm({ onDataFetched }) {
                         <option value="7.15">40 Meter</option>
                     </select>
                 </div>
+
+                {isMoxon && (
+                    <>
+                        <div>
+                            <label>Material Diameter</label>
+                            <input 
+                            type="number"
+                            value={diameter}
+                            placeholder="Wire diameter"
+                            onChange={(e) => setDiameter(e.target.value)} />
+                        </div>
+                    </>
+                )}
 
                 {isYagi && (
                     <>
