@@ -102,6 +102,20 @@ function AntennaForm({ onDataFetched }) {
                         <option value="7.15">40 Meter</option>
                     </select>
                 </div>
+
+                {isYagi && (
+                    <>
+                        <div>
+                            <label>Number of Elements: </label>
+                            <input 
+                            type="number"
+                            value={elements}
+                            placeholder="Elements"
+                            onChange={(e) => setElements(e.target.value)}
+                            />
+                        </div>
+                    </>
+                )}
                 
 
                 <div className="answer input output">

@@ -38,8 +38,9 @@ def dipole_calculate(request):
                 return f"{whole_feet}' {whole_inches} {numerator}/{denominator}\""
 
 
-
+        #Determine what unit to utilize for calculations.
         if unit == "standard":
+            #determine what wavelength user has selected
             if wave_length == "half":
                 wave_length = 468
             elif wave_length == 'quarter':
@@ -47,8 +48,10 @@ def dipole_calculate(request):
             else:
                 wave_length = 1005
 
+            #calculate the total length of the antenna
             total_len = wave_length / freq
 
+            #convert feet with decimal to feet, inches for full length and element length.
             full_len = feet_to_inches(total_len)
             el_len = feet_to_inches(total_len/2)
 
