@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+import math
 
 def moxon_calculate(request):
     try:
@@ -6,6 +7,7 @@ def moxon_calculate(request):
         wave_length = request.GET.get('waveLength', 'half')
         unit = request.GET.get('unit', 'standard')
         hertz = float(request.GET.get('hertz', 1))
+        diameter = float(request.GET.get('diameter', 1.6))
 
         freq = freq * hertz
 
@@ -34,14 +36,40 @@ def moxon_calculate(request):
                 return f"{whole_feet}' {whole_inches} {numerator}/{denominator}\""
             
 
-        # if unit == "standard":
+        wave = 299792.5 / freq
+        dw = 0.4342945 * math.log(diameter / wave)
 
-        # elif unit == "metric":
+        a = -0.0008571428571 * (dw * dw) - 0.009571428571 * dw + 0.3398571429
+        b = -0.002142857143 * (dw * dw) - 0.02035714286 * dw + 0.008285714286
+        c = 0.001809523381 * (dw * dw) + 0.01780952381 * dw + 0.05164285714
+        d = 0.001 * dw + 0.07178571429
 
+        a = a * wave / 1000  
+        b = b * wave / 1000  
+        c = c * wave / 1000  
+        d = d * wave / 1000
 
+        if unit == 'metric':
+            a = f"{a} meters"
+            b = f"{b} meters"
+            c = f"{c} meters"
+            d = f"{d} meters"
 
+        elif unit == 'standard':
+            a = a * 3.28084
+            b = b * 3.28084
+            c = c * 3.28084
+            d = d * 3.28084
 
+            a = feet_to_inches(a)
+            b = feet_to_inches(b)  
+            c = feet_to_inches(c)  
+            d = feet_to_inches(d) 
 
-        
+        else:
+            return JsonResponse('Null')
+
+        return JsonResponse({'a': a, 'b': b, 'c': c, 'd': d})
+    
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)
