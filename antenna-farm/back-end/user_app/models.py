@@ -12,5 +12,5 @@ class AppUser(AbstractUser):
         unique=True,
     )
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []

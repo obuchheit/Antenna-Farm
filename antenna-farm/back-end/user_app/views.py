@@ -9,12 +9,11 @@ from rest_framework.permissions import IsAuthenticated
 
 class Sign_up(APIView):
     def post(self, request):
-        request.data["username"] = request.data['email']
         user = AppUser.objects.create_user(**request.data)
         token = Token.objects.create(user=user)
 
         return Response(
-            {"user": user.email, "token": token.key}, status=HTTP_201_CREATED
+            {"user": user.username, 'email': user.email, "token": token.key}, status=HTTP_201_CREATED
         )
     
 class Log_in(APIView):
