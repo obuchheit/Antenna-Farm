@@ -11,6 +11,7 @@ class AppUser(AbstractUser):
         max_length=50,
         unique=True,
     )
+    date_joined = models.DateTimeField(auto_now_add=True)
 
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = []
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
