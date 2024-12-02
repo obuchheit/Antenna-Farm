@@ -27,7 +27,7 @@ class SignUp(APIView):
 
         
     
-class Log_in(APIView):
+class LogIn(APIView):
     def post(self, request):
         data = request.data
 

@@ -7,4 +7,6 @@ class SavedAntennas(models.Model):
     frequency = models.FloatField()
     material = models.CharField()
     material_width = models.FloatField()
+    boom_materiel = models.CharField()
+    boom_width = models.FloatField()
 
