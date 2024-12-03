@@ -11,8 +11,12 @@ function AntennaForm({ onDataFetched }) {
     const [waveLength, setWaveLength] = useState('half');
     const [unit, setUnit] = useState('standard'); 
 
+    //Yagi useStates
     const [elements, setElements] = useState('5');
-    
+    const [boomDiameter, setBoomDiameter] = useState('20')
+    const [boomMateriel, setBoomMateriel] = useState('aluminum')
+
+    //Other useStates
     const [diameter, setDiameter] = useState('1.6');
     const [material, setMaterial] = useState('copper');
 
@@ -96,6 +100,27 @@ function AntennaForm({ onDataFetched }) {
                     </select>
                 </div>
 
+                <div>
+                    <label>Materiel Diameter</label>
+                    <input 
+                    type="number"
+                    value={diameter}
+                    placeholder="Wire diameter"
+                    onChange={(e) => setDiameter(e.target.value)} />
+                </div>
+
+                <div>
+                    <label>Materiel</label>
+                    <select
+                    value={material}
+                    placeholder="materiel"
+                    onChange={(e) => setMaterial(e.target.value)}
+                    >
+                        <option value="copper">Copper</option>
+                        <option value="aluminum">Aluminum</option>
+                    </select>
+                </div>
+
                 {/* Add useState for Quick Bands */}
                 <div className="input">
                     <label>Quick Bands: </label>
@@ -112,18 +137,6 @@ function AntennaForm({ onDataFetched }) {
                     </select>
                 </div>
 
-                {isMoxon && (
-                    <>
-                        <div>
-                            <label>Material Diameter</label>
-                            <input 
-                            type="number"
-                            value={diameter}
-                            placeholder="Wire diameter"
-                            onChange={(e) => setDiameter(e.target.value)} />
-                        </div>
-                    </>
-                )}
 
                 {isYagi && (
                     <>
@@ -135,6 +148,29 @@ function AntennaForm({ onDataFetched }) {
                             placeholder="Elements"
                             onChange={(e) => setElements(e.target.value)}
                             />
+                        </div>
+
+                        <div>
+                            <label>Boom Width</label>
+                            <input 
+                            type="number"
+                            value={boomDiameter}
+                            placeholder="Boom Diameter"
+                            onChange={(e) => setBoomDiameter(e.target.value)} 
+                            />
+                        </div>
+
+                        <div>
+                            <label>Boom Materiel</label>
+                            <select
+                            placeholder="Boom Materiel" 
+                            value={boomMateriel}
+                            onChange={(e) => setBoomMateriel(e.target.value)}
+                            >
+                                <option value="aluminum">Aluminum</option>
+                                <option value="pvc">PVC</option>
+                                <option value="wood">Wood</option>
+                            </select>
                         </div>
                     </>
                 )}

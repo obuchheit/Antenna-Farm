@@ -32,6 +32,9 @@ function PageNavBar() {
                         </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
+                    <Nav>
+                        <Nav.Link>Register</Nav.Link>
+                    </Nav>
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
