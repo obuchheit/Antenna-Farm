@@ -8,6 +8,9 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
+class TokenReq(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
 class SignUp(APIView):
     def post(self, request):
@@ -44,17 +47,13 @@ class LogIn(APIView):
              
         return Response({"error": "Invalid credentials"}, status=HTTP_400_BAD_REQUEST)
     
-class Info(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+class Info(TokenReq):
 
     def get(self, request):
         return Response({"email": request.user.email, "username": request.user.username})
 
 
-class LogOut(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+class LogOut(TokenReq):
 
     def post(self, request):
         request.user.auth_token.delete()
