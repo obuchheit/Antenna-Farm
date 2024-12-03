@@ -12,9 +12,27 @@ class AntennaManager(TokenReq):
     def get_an_antenna(self, id):
         return get_object_or_404(SavedAntennas, id=id)
     
-    def post(self, requst):
-        pass
+    def post(self, request):
+        data = request.data
+        data['user'] = request.user.id
 
+        serialized_data = AllAntennasSerializer(data=data)
+        if serialized_data.is_valid():
+            serialized_data.save()
+            return Response(serialized_data.data, status=HTTP_201_CREATED)
+        else:
+            return Response(serialized_data.errors, status=HTTP_400_BAD_REQUEST)
+        
+    def put(self, request, id):
+        antenna = self.get_an_antenna(id)
+        if antenna.user != request.user:
+            return Response({"error": "Permission denied."}, status=HTTP_400_BAD_REQUEST)
+        serialized_data = AllAntennasSerializer(antenna, data=request.data, partial=False)
+        if serialized_data.is_valid():
+            serialized_data.save()
+            return Response(serialized_data.data, status=HTTP_200_OK)
+        else:
+            return Response(serialized_data.errors, status=HTTP_400_BAD_REQUEST)
     
     def delete(self, request, id):
         antenna = self.get_an_antenna(id)
