@@ -17,9 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+def test_connection(request):
+    pass
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/users', include('user_app.urls')),
+    path('api/v1/users/', include('user_app.urls')),
     path('rpc/v1/', include('calculator_app.urls')),
     path('rpc/v1/', include('dipole_app.urls')),
     path('rpc/v1/', include('moxon_app.urls')),

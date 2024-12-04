@@ -150,7 +150,7 @@ function AntennaForm({ onDataFetched }) {
                         </div>
 
                         <div>
-                            <label>Boom Width</label>
+                            <label>Boom Diameter: </label>
                             <input 
                             type="number"
                             value={boomDiameter}
@@ -160,7 +160,7 @@ function AntennaForm({ onDataFetched }) {
                         </div>
 
                         <div>
-                            <label>Boom Relation</label>
+                            <label>Boom Relation: </label>
                             <select
                             placeholder="Boom Materiel" 
                             value={boomRelation}

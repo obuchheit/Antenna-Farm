@@ -7,16 +7,28 @@ import Moxon from "../pages/Moxon.jsx";
 import Yagi from "../pages/Yagi.jsx";
 import AntennaForm from "../components/AntennaForm.jsx";
 import Error404Page from "../pages/Error404Page.jsx"
+import RegistrationPage from "../pages/RegistrationPage.jsx";
+import LogInPage from "../pages/LogInPage.jsx";
+import { getInfo } from "../utilities.jsx";
 
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
+        loader: getInfo,
         children: [
             {
                 index: true, 
                 element: <HomePage />
+            },
+            {
+                path: '/register',
+                element: <RegistrationPage />
+            },
+            {
+                path: '/login',
+                element: <LogInPage />
             },
             {
                 path: "/dipole",

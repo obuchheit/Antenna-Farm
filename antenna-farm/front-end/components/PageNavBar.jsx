@@ -1,7 +1,11 @@
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap"
+import { Container, Nav, Navbar, NavDropdown, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { signOut } from "../utilities";
 
-function PageNavBar() {
+function PageNavBar({ user, setUser }) {
+    const logOut = async() => {
+        setUser(await signOut(user))
+    }
     return (
         <>
             <Navbar expand="lg" className="bg-body-tertiary">
@@ -32,14 +36,28 @@ function PageNavBar() {
                         </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
-                    <Nav>
-                        <Nav.Link>Login/Signup</Nav.Link>
-                    </Nav>
+
+                    {user ? (
+                        <>
+                            <Nav>
+                                <Nav.Link>Saved Antennas</Nav.Link>
+                            </Nav>
+                            <Button onClick={logOut}>Logout</Button>
+                        </>
+                    ) : (
+                        <>
+                            <Nav>
+                                <Nav.Link as={Link} to='/login'>Login/Signup</Nav.Link>
+                            </Nav>
+                        </>
+                    )
+
+                    }
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
         </>
-    )
-}
+    );
+};
 
 export default PageNavBar
