@@ -1,4 +1,5 @@
 from django.http import JsonResponse
+from rest_framework.status import HTTP_201_CREATED, HTTP_404_NOT_FOUND, HTTP_400_BAD_REQUEST, HTTP_204_NO_CONTENT
 import math
 
 def moxon_calculate(request):
@@ -8,6 +9,9 @@ def moxon_calculate(request):
         unit = request.GET.get('unit', 'standard')
         hertz = float(request.GET.get('hertz', 1))
         diameter = float(request.GET.get('diameter', 1.6))
+
+        ##material = request.GET.get('material', 'coppper')
+
 
         freq = freq * hertz
 
@@ -72,4 +76,4 @@ def moxon_calculate(request):
         return JsonResponse({'a': a, 'b': b, 'c': c, 'd': d})
     
     except Exception as e:
-        return JsonResponse({'error': str(e)}, status=400)
+        return JsonResponse({'error': str(e)}, status=HTTP_400_BAD_REQUEST)
