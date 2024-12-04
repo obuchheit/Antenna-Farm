@@ -14,18 +14,18 @@ function AntennaForm({ onDataFetched }) {
     //Yagi useStates
     const [elements, setElements] = useState('5');
     const [boomDiameter, setBoomDiameter] = useState('20')
-    const [boomMateriel, setBoomMateriel] = useState('aluminum')
+    const [boomRelation, setBoomRelation] = useState('center_connected')
 
     //Other useStates
-    const [diameter, setDiameter] = useState('1.6');
+    const [diameter, setDiameter] = useState('5');
     const [material, setMaterial] = useState('copper');
 
     const isYagi = antenna.pathname === '/yagi';
     const isMoxon = antenna.pathname === '/moxon';
 
     const urlMake = () => {
-        if (isMoxon === true) {
-            return `diameter=${diameter}`
+        if (isYagi === true) {
+            return `elements=${elements}&boomDiameter=${boomDiameter}&boomRelation=${boomRelation}`
         }
         else {
             return ''
@@ -36,7 +36,7 @@ function AntennaForm({ onDataFetched }) {
 
         try{      
             const addEnd = urlMake()
-            const url = `http://127.0.0.1:8000/api/v1${antenna.pathname}/?freq=${freq}&hertz=${hertz}&waveLength=${waveLength}&unit=${unit}&${addEnd}`;      
+            const url = `http://127.0.0.1:8000/rpc/v1${antenna.pathname}/?freq=${freq}&hertz=${hertz}&waveLength=${waveLength}&diameter=${diameter}&material=${material}&unit=${unit}&${addEnd}`;      
             const response = await axios.get(url);
             console.log("API Respnse:", response.data);
             onDataFetched(response.data);
@@ -110,10 +110,10 @@ function AntennaForm({ onDataFetched }) {
                 </div>
 
                 <div>
-                    <label>Materiel</label>
+                    <label>Material</label>
                     <select
                     value={material}
-                    placeholder="materiel"
+                    placeholder="material"
                     onChange={(e) => setMaterial(e.target.value)}
                     >
                         <option value="copper">Copper</option>
@@ -121,7 +121,6 @@ function AntennaForm({ onDataFetched }) {
                     </select>
                 </div>
 
-                {/* Add useState for Quick Bands */}
                 <div className="input">
                     <label>Quick Bands: </label>
                     <select 
@@ -161,15 +160,15 @@ function AntennaForm({ onDataFetched }) {
                         </div>
 
                         <div>
-                            <label>Boom Materiel</label>
+                            <label>Boom Relation</label>
                             <select
                             placeholder="Boom Materiel" 
-                            value={boomMateriel}
-                            onChange={(e) => setBoomMateriel(e.target.value)}
+                            value={boomRelation}
+                            onChange={(e) => setBoomRelation(e.target.value)}
                             >
-                                <option value="aluminum">Aluminum</option>
-                                <option value="pvc">PVC</option>
-                                <option value="wood">Wood</option>
+                                <option value="center_connected">Elements are electrically connected to the boom.</option>
+                                <option value="insulated">Boom is insulated and elements are isolated and centered from the boom.</option>
+                                <option value="isolated_above">Elements are isolated and on top of the boom.</option>
                             </select>
                         </div>
                     </>

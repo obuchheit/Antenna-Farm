@@ -33,7 +33,7 @@ function PageNavBar() {
                         </NavDropdown>
                     </Nav>
                     <Nav>
-                        <Nav.Link>Register</Nav.Link>
+                        <Nav.Link>Login/Signup</Nav.Link>
                     </Nav>
                     </Navbar.Collapse>
                 </Container>
