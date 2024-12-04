@@ -20,6 +20,7 @@ function Yagi() {
                 <p>{data ? `Driver Length: ${data.driverLength} Meters`: "Driver Length: 0"}</p>
                 <p>{data ? `Driver Space: ${data.driverSpace} Meters` : "Driver Space: 0"}</p>
                 <p>{data ? `Number of Directors: ${data.dirLengths.length}` : "Driver Space: 0"}</p>
+                <img src="../images/yagi-antenna.webp" alt="" />
             </div>
         </>
     )

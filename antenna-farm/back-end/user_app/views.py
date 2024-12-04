@@ -50,7 +50,7 @@ class LogIn(APIView):
 class Info(TokenReq):
 
     def get(self, request):
-        return Response({"email": request.user.email, "username": request.user.username})
+        return Response({"email": request.user.email})
 
 
 class LogOut(TokenReq):
