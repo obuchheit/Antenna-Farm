@@ -34,6 +34,20 @@ Cross-platform antenna design calculator for amateur radio enthusiasts. Calculat
 
 ## Installation
 
+### Quick Start
+
+Before building the app, you need to generate the icon files:
+
+```bash
+# Generate all platform icons from SVG source
+make icons
+
+# On macOS, also create .icns file
+make macos-icon
+```
+
+This will create icons in multiple formats for Android, iOS, Windows, macOS, and Linux.
+
 ### Desktop (Windows, macOS, Linux)
 
 #### Option 1: Run from Source
@@ -58,6 +72,13 @@ make run
 ```bash
 pip install .
 antenna-calculator
+```
+
+#### Option 4: Install with Desktop Shortcut (Linux)
+```bash
+make icons              # Generate icons first
+make linux-install      # Build and install with menu entry
+# Now find "Antenna Calculator" in your applications menu
 ```
 
 ### Android
@@ -130,38 +151,84 @@ The calculator will warn you if wire diameter is outside the optimal range.
 
 #### Windows
 ```bash
+# Generate icons first
+make icons
+
+# Build standalone executable with icon
 pip install pyinstaller
 make windows
-# Output: dist/AntennaCalculator.exe
+# Output: dist/AntennaCalculator.exe (with icon)
+
+# Optional: Create installer with desktop shortcut
+# Requires NSIS (https://nsis.sourceforge.io/)
+make windows-installer
+# Output: dist/AntennaCalculator-Setup.exe
 ```
+
+The Windows installer will:
+- Install the app to Program Files
+- Create Start Menu shortcut with icon
+- Create Desktop shortcut with icon
+- Add uninstaller
 
 #### macOS
 ```bash
+# Generate icons first
+make icons
+make macos-icon  # Creates .icns file
+
+# Build standalone app with icon
 pip install pyinstaller
 make macos
-# Output: dist/AntennaCalculator.app
+# Output: dist/AntennaCalculator.app (with icon)
 ```
+
+The macOS app bundle will have a proper icon in Finder and Dock.
 
 #### Linux
 ```bash
+# Generate icons first
+make icons
+
+# Build standalone executable
 pip install pyinstaller
 make linux
 # Output: dist/antenna-calculator
+
+# Or install system-wide with desktop entry
+make linux-install
+# Creates menu entry with icon in Applications menu
 ```
+
+The Linux installation will:
+- Install to `/usr/local/bin/antenna-calculator`
+- Create desktop entry in `/usr/share/applications/`
+- Add icon to `/usr/local/share/icons/`
+- Appear in your applications menu with icon
 
 ### Mobile Apps
 
+Both Android and iOS builds will automatically use the icons specified in `buildozer.spec`.
+
 #### Android Release Build
 ```bash
-make android-release
+# Icons are automatically included from assets/icon.png
+make icons              # Generate icons first
+make android-release    # Build release APK
 # Sign the APK before distribution
 ```
 
+The Android APK will have the app icon on the home screen and app drawer.
+
 #### iOS Release Build
 ```bash
-make ios
+# Icons are automatically included from assets/icon_ios_1024.png
+make icons              # Generate icons first
+make ios                # Build IPA
 # Requires Apple Developer account for signing
 ```
+
+The iOS app will have the icon on the home screen and in the App Store.
 
 ## Technical Details
 
@@ -211,17 +278,47 @@ L.B. Cebik (SK) developed high-precision polynomial equations for Moxon rectangl
 ### Project Structure
 ```
 antenna-calculator/
-├── main.py              # Main application file
-├── requirements.txt     # Python dependencies
-├── buildozer.spec       # Mobile build configuration
-├── setup.py            # Desktop installation script
-├── Makefile            # Build automation
-├── README.md           # This file
-├── .gitignore          # Git ignore patterns
-├── assets/             # Images and icons
-├── tests/              # Unit tests
-└── docs/               # Additional documentation
+├── main.py                      # Main application file
+├── create_icons.py              # Icon generation script
+├── requirements.txt             # Python dependencies
+├── buildozer.spec               # Mobile build configuration
+├── setup.py                     # Desktop installation script
+├── Makefile                     # Build automation
+├── README.md                    # This file
+├── .gitignore                   # Git ignore patterns
+├── antenna-calculator.desktop   # Linux desktop entry
+├── installer.nsi                # Windows NSIS installer script
+├── assets/                      # Images and icons
+│   ├── icon_source.svg         # Source SVG icon
+│   ├── icon.png                # Main icon (512x512)
+│   ├── icon.ico                # Windows icon
+│   ├── icon.icns               # macOS icon
+│   ├── icon.iconset/           # macOS iconset folder
+│   └── icon_*.png              # Various size icons
+├── tests/                       # Unit tests
+└── docs/                        # Additional documentation
 ```
+
+### Icon Generation
+
+The app includes a comprehensive icon generation system:
+
+```bash
+# Generate all icons from SVG source
+make icons
+```
+
+This creates:
+- **Android**: `icon.png` (512x512) and density-specific icons
+- **iOS**: Multiple sizes from 29x29 to 1024x1024
+- **Windows**: `icon.ico` (multi-resolution)
+- **macOS**: `icon.iconset/` folder (run `make macos-icon` to create `.icns`)
+- **Linux**: PNG icons in various sizes
+
+**Customizing the Icon:**
+1. Edit `assets/icon_source.svg` with your design
+2. Or replace `assets/icon_base.png` with a 1024x1024 PNG
+3. Run `make icons` to regenerate all formats
 
 ### Running Tests
 ```bash

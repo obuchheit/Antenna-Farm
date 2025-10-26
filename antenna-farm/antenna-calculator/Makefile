@@ -1,24 +1,30 @@
-.PHONY: help install run clean test android ios windows macos linux
+.PHONY: help install run clean test android ios windows macos linux icons
 
 help:
 	@echo "Antenna Calculator Build System"
 	@echo ""
 	@echo "Available targets:"
-	@echo "  make install   - Install dependencies"
-	@echo "  make run       - Run the application"
-	@echo "  make clean     - Clean build artifacts"
-	@echo "  make test      - Run tests"
+	@echo "  make install       - Install dependencies"
+	@echo "  make icons         - Generate all icon files"
+	@echo "  make run           - Run the application"
+	@echo "  make clean         - Clean build artifacts"
+	@echo "  make test          - Run tests"
 	@echo ""
 	@echo "Platform-specific builds:"
-	@echo "  make android   - Build Android APK"
-	@echo "  make ios       - Build iOS IPA"
-	@echo "  make windows   - Build Windows executable"
-	@echo "  make macos     - Build macOS app"
-	@echo "  make linux     - Build Linux AppImage"
+	@echo "  make android       - Build Android APK"
+	@echo "  make ios           - Build iOS IPA"
+	@echo "  make windows       - Build Windows executable"
+	@echo "  make macos         - Build macOS app"
+	@echo "  make linux         - Build Linux executable"
+	@echo "  make linux-install - Install on Linux system"
+	@echo ""
+	@echo "Icon generation:"
+	@echo "  make icons         - Generate all platform icons"
+	@echo "  make macos-icon    - Create macOS .icns file"
 
 install:
 	@echo "Installing dependencies..."
-	pip install -r requirements.txt
+	pip3 install -r requirements.txt
 
 run:
 	@echo "Running Antenna Calculator..."
@@ -38,7 +44,7 @@ clean:
 
 test:
 	@echo "Running tests..."
-	python -m pytest tests/ -v
+	python3 -m pytest tests/ -v
 
 # Android build using Buildozer
 android:
@@ -117,3 +123,45 @@ check:
 	@python -c "import kivymd; print(f'KivyMD: {kivymd.__version__}')" || echo "KivyMD not installed"
 	@which buildozer > /dev/null && echo "Buildozer: installed" || echo "Buildozer: not installed"
 	@which pyinstaller > /dev/null && echo "PyInstaller: installed" || echo "PyInstaller: not installed"
+
+# Icon generation
+icons:
+	@echo "Generating icons for all platforms..."
+	python3 create_icons.py
+	@echo "Icon generation complete!"
+
+# macOS ICNS generation (requires macOS and iconutil)
+macos-icon:
+	@echo "Creating macOS .icns file..."
+	@if [ -d "assets/icon.iconset" ]; then \
+		iconutil -c icns assets/icon.iconset -o assets/icon.icns && \
+		echo "✓ Created assets/icon.icns"; \
+	else \
+		echo "Error: assets/icon.iconset not found. Run 'make icons' first."; \
+		exit 1; \
+	fi
+
+# Install on Linux system with desktop shortcut
+linux-install: linux
+	@echo "Installing Antenna Calculator on Linux..."
+	sudo mkdir -p /usr/local/bin/antenna-calculator
+	sudo cp -r * /usr/local/bin/antenna-calculator/
+	sudo cp assets/icon_512.png /usr/local/share/icons/antenna-calculator.png
+	sudo cp antenna-calculator.desktop /usr/share/applications/
+	sudo chmod +x /usr/local/bin/antenna-calculator/main.py
+	@echo "✓ Installed! Look for 'Antenna Calculator' in your applications menu."
+
+# Uninstall from Linux
+linux-uninstall:
+	@echo "Uninstalling Antenna Calculator..."
+	sudo rm -rf /usr/local/bin/antenna-calculator
+	sudo rm -f /usr/local/share/icons/antenna-calculator.png
+	sudo rm -f /usr/share/applications/antenna-calculator.desktop
+	@echo "✓ Uninstalled."
+
+# Create Windows installer (requires NSIS on Windows)
+windows-installer: windows
+	@echo "Creating Windows installer..."
+	@which makensis > /dev/null || (echo "NSIS not found. Install from https://nsis.sourceforge.io/" && exit 1)
+	makensis installer.nsi
+	@echo "Installer created: dist/AntennaCalculator-Setup.exe"

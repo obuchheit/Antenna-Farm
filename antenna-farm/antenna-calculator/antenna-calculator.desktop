@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Antenna Calculator
+Comment=Yagi and Moxon antenna design calculator
+Exec=python3 /usr/local/bin/antenna-calculator/main.py
+Icon=/usr/local/share/icons/antenna-calculator.png
+Terminal=false
+Categories=Education;Science;Engineering;HamRadio;
+Keywords=antenna;ham;radio;yagi;moxon;calculator;amateur;RF;
+StartupNotify=true
