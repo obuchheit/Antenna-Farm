@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Antenna Calculator - Cross-Platform Kivy Application
 Implements DL6WU Yagi and L.B. Cebik Moxon antenna calculations

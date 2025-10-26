@@ -18,7 +18,7 @@ def create_icons():
         os.system(f"{sys.executable} -m pip install Pillow")
         from PIL import Image
 
-    # Icon sizes for different platforms
+    # Icon sizes for mobile and Windows platforms only
     sizes = {
         'android': [
             (48, 'mdpi'),
@@ -28,7 +28,6 @@ def create_icons():
             (192, 'xxxhdpi'),
         ],
         'ios': [29, 40, 50, 57, 58, 60, 72, 76, 80, 87, 100, 114, 120, 144, 152, 167, 180, 1024],
-        'desktop': [16, 24, 32, 48, 64, 128, 256, 512, 1024],
     }
 
     assets_dir = 'assets'
@@ -132,15 +131,6 @@ def create_icons():
         img.save(filepath, 'PNG')
         print(f"  Created {filename} ({size}x{size})")
 
-    # Generate desktop icons
-    print("\nGenerating desktop icons...")
-    for size in sizes['desktop']:
-        img = base_img.resize((size, size), Image.Resampling.LANCZOS)
-        filename = f'icon_{size}.png'
-        filepath = os.path.join(assets_dir, filename)
-        img.save(filepath, 'PNG')
-        print(f"  Created {filename} ({size}x{size})")
-
     # Create Windows ICO file (multi-resolution)
     print("\nCreating Windows .ico file...")
     ico_sizes = [(16, 16), (24, 24), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)]
@@ -149,35 +139,12 @@ def create_icons():
     ico_images[0].save(ico_path, format='ICO', sizes=ico_sizes)
     print(f"  Created icon.ico (multi-resolution)")
 
-    # Create macOS ICNS file (requires additional tools)
-    print("\nFor macOS .icns file:")
-    print("  On macOS, run: make macos-icon")
-    print("  Or manually: iconutil -c icns assets/icon.iconset")
-
-    # Create iconset folder for macOS
-    iconset_dir = os.path.join(assets_dir, 'icon.iconset')
-    os.makedirs(iconset_dir, exist_ok=True)
-
-    mac_sizes = [16, 32, 64, 128, 256, 512, 1024]
-    for size in mac_sizes:
-        # Standard resolution
-        img = base_img.resize((size, size), Image.Resampling.LANCZOS)
-        img.save(os.path.join(iconset_dir, f'icon_{size}x{size}.png'), 'PNG')
-
-        # Retina resolution (@2x)
-        if size <= 512:
-            img_2x = base_img.resize((size * 2, size * 2), Image.Resampling.LANCZOS)
-            img_2x.save(os.path.join(iconset_dir, f'icon_{size}x{size}@2x.png'), 'PNG')
-
-    print(f"  Created iconset folder: {iconset_dir}")
-
     print("\n✓ Icon generation complete!")
     print("\nGenerated files:")
     print(f"  - Android: assets/icon.png and icon_*.png")
     print(f"  - iOS: assets/icon_ios_*.png")
     print(f"  - Windows: assets/icon.ico")
-    print(f"  - macOS: assets/icon.iconset/ (run 'iconutil' to create .icns)")
-    print(f"  - Linux: assets/icon_*.png")
+    print(f"\nNote: For macOS/Linux, run the app directly with: python3 main.py")
 
     return True
 

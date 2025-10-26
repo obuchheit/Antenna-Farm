@@ -21,13 +21,6 @@ version = 1.0
 # (str) Application icon
 icon.filename = %(source.dir)s/assets/icon.png
 
-# (str) Presplash of the application
-#presplash.filename = %(source.dir)s/assets/presplash.png
-
-# (str) Icon of the application (adaptive icon for Android)
-#icon.adaptive_foreground.filename = %(source.dir)s/assets/icon_fg.png
-#icon.adaptive_background.filename = %(source.dir)s/assets/icon_bg.png
-
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
 requirements = python3,kivy==2.2.0
@@ -85,7 +78,7 @@ warn_on_root = 1
 
 [app:ios]
 
-# (str) Path to a custom icon for iOS
+# (str) iOS app icon (1024x1024)
 icon.filename = %(source.dir)s/assets/icon_ios_1024.png
 
 # (str) Name of the certificate to use for signing the debug version
