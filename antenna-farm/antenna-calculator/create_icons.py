@@ -35,27 +35,64 @@ def create_icons():
     source_svg = os.path.join(assets_dir, 'icon_source.svg')
 
     # Check if we need to convert SVG to PNG first
-    if os.path.exists(source_svg):
+    base_png = os.path.join(assets_dir, 'icon_base.png')
+
+    if os.path.exists(source_svg) and not os.path.exists(base_png):
         print("Converting SVG to base PNG...")
+        converted = False
+
+        # Try method 1: cairosvg
         try:
-            # Try using cairosvg if available
             import cairosvg
-            base_png = os.path.join(assets_dir, 'icon_base.png')
             cairosvg.svg2png(url=source_svg, write_to=base_png, output_width=1024, output_height=1024)
-            print(f"Created base PNG: {base_png}")
-        except ImportError:
-            print("cairosvg not found. Trying Inkscape...")
-            # Try using Inkscape command line
-            base_png = os.path.join(assets_dir, 'icon_base.png')
-            result = os.system(f'inkscape {source_svg} --export-type=png --export-filename={base_png} -w 1024 -h 1024')
-            if result != 0:
-                print("\nWARNING: Could not convert SVG automatically.")
-                print("Please manually convert assets/icon_source.svg to assets/icon_base.png (1024x1024)")
-                print("You can use: https://www.adobe.com/express/feature/image/convert/svg-to-png")
-                print("or Inkscape: inkscape icon_source.svg --export-type=png --export-filename=icon_base.png -w 1024 -h 1024")
-                return False
-    else:
-        base_png = os.path.join(assets_dir, 'icon_base.png')
+            print(f"✓ Created base PNG using cairosvg: {base_png}")
+            converted = True
+        except Exception as e:
+            print(f"cairosvg not available: {e}")
+
+        # Try method 2: Inkscape CLI
+        if not converted:
+            print("Trying Inkscape...")
+            result = os.system(f'inkscape {source_svg} --export-type=png --export-filename={base_png} -w 1024 -h 1024 2>/dev/null')
+            if result == 0:
+                print(f"✓ Created base PNG using Inkscape: {base_png}")
+                converted = True
+
+        # Try method 3: svglib + reportlab
+        if not converted:
+            print("Trying svglib...")
+            try:
+                from svglib.svglib import svg2rlg
+                from reportlab.graphics import renderPM
+                drawing = svg2rlg(source_svg)
+                renderPM.drawToFile(drawing, base_png, fmt='PNG', dpi=72, bg=0xffffff)
+                # Resize to 1024x1024
+                img = Image.open(base_png)
+                img = img.resize((1024, 1024), Image.Resampling.LANCZOS)
+                img.save(base_png, 'PNG')
+                print(f"✓ Created base PNG using svglib: {base_png}")
+                converted = True
+            except Exception as e:
+                print(f"svglib not available: {e}")
+
+        # If nothing worked, provide manual instructions
+        if not converted:
+            print("\n" + "="*60)
+            print("⚠️  Could not convert SVG automatically.")
+            print("="*60)
+            print("\nPlease convert manually using one of these options:")
+            print("\n1. Online converter:")
+            print("   https://www.adobe.com/express/feature/image/convert/svg-to-png")
+            print("   https://cloudconvert.com/svg-to-png")
+            print("\n2. Install Inkscape and run:")
+            print(f"   inkscape {source_svg} --export-type=png --export-filename={base_png} -w 1024 -h 1024")
+            print("\n3. Install Cairo library (for cairosvg):")
+            print("   brew install cairo")
+            print("   pip3 install cairosvg")
+            print("\n4. Or simply create a 1024x1024 PNG manually and save as:")
+            print(f"   {base_png}")
+            print("="*60)
+            return False
 
     if not os.path.exists(base_png):
         print(f"\nERROR: Base icon not found at {base_png}")
